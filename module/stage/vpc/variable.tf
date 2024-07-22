@@ -1,6 +1,6 @@
 variable "vpc_cidr" {}
-variable "public_subnet_az1_cidr" {}
-variable "public_subnet_az2_cidr" {}
+# variable "public_subnet_az1_cidr" {}
+# variable "public_subnet_az2_cidr" {}
 variable "eu_availability_zone" {
     description = "list of subnets az's"
     type        = list(string)

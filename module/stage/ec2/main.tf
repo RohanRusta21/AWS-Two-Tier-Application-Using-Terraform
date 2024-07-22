@@ -17,46 +17,47 @@ resource "aws_instance" "ec2_pub_az1" {
     Name                 = "EC2 Public subnet in az1"
   }
   key_name               = "sarva"
-  subnet_id              = aws_subnet.public_subnet[0]
+  count                  = length(var.public_subnet) 
+  subnet_id              = element(var.public_subnet[0],count.index)
   vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
 
 }
 
-resource "aws_instance" "ec2_pub_az2" {
-  ami                    = var.ec2_ami
-  instance_type          = var.ec2_type
-  tags = {
-    Name                 = "EC2 public subnet in az1"
-  }
-  key_name               = "sarva"
-  subnet_id              = aws_subnet.public_subnet[1]
-  vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
+# resource "aws_instance" "ec2_pub_az2" {
+#   ami                    = var.ec2_ami
+#   instance_type          = var.ec2_type
+#   tags = {
+#     Name                 = "EC2 public subnet in az1"
+#   }
+#   key_name               = "sarva"
+#   subnet_id              = aws_subnet.public_subnet[1]
+#   vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
 
-}
+# }
 
-resource "aws_instance" "ec2_pri_az1" {
-  ami                    = var.ec2_ami
-  instance_type          = var.ec2_type
-  tags = {
-    Name                 = "EC2 Private subnet in az1"
-  }
-  key_name               = "sarva"
-  subnet_id              = aws_subnet.private_subnet[0]
-  vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
+# resource "aws_instance" "ec2_pri_az1" {
+#   ami                    = var.ec2_ami
+#   instance_type          = var.ec2_type
+#   tags = {
+#     Name                 = "EC2 Private subnet in az1"
+#   }
+#   key_name               = "sarva"
+#   subnet_id              = aws_subnet.private_subnet[0]
+#   vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
 
-}
+# }
 
-resource "aws_instance" "ec2_pri_az2" {
-  ami                    = var.ec2_ami
-  instance_type          = var.ec2_type
-  tags = {
-    Name                 = "EC2 Private subnet in az2"
-  }
-  key_name               = "sarva"
-  subnet_id              = aws_subnet.private_subnet[1]
-  vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
+# resource "aws_instance" "ec2_pri_az2" {
+#   ami                    = var.ec2_ami
+#   instance_type          = var.ec2_type
+#   tags = {
+#     Name                 = "EC2 Private subnet in az2"
+#   }
+#   key_name               = "sarva"
+#   subnet_id              = aws_subnet.private_subnet[1]
+#   vpc_security_group_ids = [aws_security_group.aws_security_group.sg_vpc_http_ssh.id]
 
-}
+# }
 
 # try to do it through for loop with multiple ports
 resource "aws_security_group" "sg_vpc_http_ssh" {
